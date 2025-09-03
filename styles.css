@@ -2385,9 +2385,11 @@ body.light-mode .theme-toggle:hover {
   align-items: center;
   justify-content: flex-end;
   gap: 1rem;
+  flex-shrink: 0;
+  width: auto;
 }
 .theme-toggle {
   position: relative;
-  top: -0.2rem;
-  margin-right: 222px;
+  top: -0rem;
+  margin-left: 1rem;
 } 
