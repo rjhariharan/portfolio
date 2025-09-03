@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>R.J. Hariharan</title>
+    <link rel="icon" href="portfoliologo.png" type="image/x-icon">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -12,7 +13,7 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-content">
-            <div class="logo">RJH</div>
+            <div class="logo"><img src="portfoliologo.png" alt="logo"></div>
             <div class="nav-links-wrapper">
                 <ul class="nav-links">
                     <li><a href="#home">Home</a></li>
@@ -24,18 +25,23 @@
                 </ul>
             </div>
             <div class="nav-buttons-wrapper">
-                <button class="hamburger" id="hamburger" aria-label="Open menu">
-                    <span></span><span></span><span></span>
-                </button>
                 <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
                     <i class="fas fa-moon"></i>
+                </button>
+                <button class="hamburger" id="hamburger" aria-label="Open menu">
+                    <span></span><span></span><span></span>
                 </button>
             </div>
         </div>
         <div class="mobile-menu" id="mobile-menu">
-            <button class="close-mobile-menu" id="close-mobile-menu" aria-label="Close menu">
-                <span>&times;</span>
-            </button>
+            <div class="mobile-menu-header">
+                <button id="mobile-theme-toggle" class="theme-toggle mobile-theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="close-mobile-menu" id="close-mobile-menu" aria-label="Close menu">
+                    <span>&times;</span>
+                </button>
+            </div>
             <ul>
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
@@ -44,11 +50,9 @@
                 <li><a href="#certifications">Certifications</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <button id="mobile-theme-toggle" class="theme-toggle" aria-label="Toggle theme">
-                <i class="fas fa-moon"></i>
-            </button>
         </div>
     </nav>
+    
     <!-- Loading Screen -->
     <div id="loading-screen">
         <div class="loader">
@@ -62,8 +66,8 @@
             <h2>Java Full Stack Developer</h2>
             <p>Building Modern Web Applications | Creating Digital Experiences</p>
             <div class="cta-buttons">
-                <a href="rjhariharanresume.pdf" download="rjhariharanresume.pdf" class="primary-btn">Download Resume</a>
-                <a href="#projects" class="secondary-btn">Get in Touch</a>
+                <a href="rjhariharanresume.pdf" download="rjresume.pdf" class="primary-btn">Download Resume</a>
+                <a href="#contact" class="secondary-btn">Get in Touch</a>
             </div>
         </div>
     </section>
@@ -164,9 +168,23 @@
             <div class="contact-info reveal">
                 <p class="reveal">I'm always open to new opportunities and collaborations. Let's connect and build something amazing together!</p>
                 <div class="social-links reveal">
-                    <a href="#" class="social-icon reveal"><i class="fab fa-github reveal"></i></a>
-                    <a href="#" class="social-icon reveal"><i class="fab fa-linkedin reveal"></i></a>
-                    <a href="#" class="social-icon reveal"><i class="fas fa-envelope reveal"></i></a>
+                    <a href="https://github.com/rjhariharan" target="_blank" class="social-icon reveal" ><i class="fab fa-github reveal"></i></a>
+                    <a href="https://www.linkedin.com/in/rjhariharan" target="_blank" class="social-icon reveal"><i class="fab fa-linkedin reveal"></i></a>
+                    <a href="https://www.instagram.com/r.j.hariharan/" target="_blank" class="social-icon reveal"><i class="fab fa-instagram reveal"></i></a>
+                </div>
+                <div class="contact-details reveal">
+                    <div class="contact-item reveal">
+                        <i class="fas fa-envelope reveal"></i>
+                        <span class="reveal">rjhariharan1@gmail.com</span>
+                    </div>
+                    <div class="contact-item reveal">
+                        <i class="fas fa-phone reveal"></i>
+                        <span class="reveal">9342305427</span>
+                    </div>
+                    <div class="contact-item reveal">
+                        <i class="fas fa-map-marker-alt reveal"></i>
+                        <span class="reveal">Mayiladuthurai, TamilNadu</span>
+                    </div>
                 </div>
             </div>
             <form action="https://formspree.io/f/xrbazypb" method="POST" class="contact-form reveal">
