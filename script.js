@@ -131,16 +131,34 @@ document.querySelectorAll('section').forEach(section => {
     observer.observe(section);
 });
 
-// Project cards hover effect
+// Enhanced project cards interaction (touch + mouse)
 document.querySelectorAll('.project-card').forEach(card => {
+    // Mouse events
     card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-8px) scale(1.02)';
-        this.style.boxShadow = '0 15px 35px rgba(88, 166, 255, 0.2)';
+        if (!('ontouchstart' in window)) { // Only on non-touch devices
+            this.style.transform = 'translateY(-8px) scale(1.02)';
+            this.style.boxShadow = '0 15px 35px rgba(88, 166, 255, 0.2)';
+        }
     });
     
     card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0) scale(1)';
-        this.style.boxShadow = 'none';
+        if (!('ontouchstart' in window)) {
+            this.style.transform = 'translateY(0) scale(1)';
+            this.style.boxShadow = 'none';
+        }
+    });
+    
+    // Touch events for mobile
+    card.addEventListener('touchstart', function() {
+        this.style.transform = 'translateY(-4px) scale(1.01)';
+        this.style.boxShadow = '0 8px 20px rgba(88, 166, 255, 0.15)';
+    });
+    
+    card.addEventListener('touchend', function() {
+        setTimeout(() => {
+            this.style.transform = 'translateY(0) scale(1)';
+            this.style.boxShadow = 'none';
+        }, 150);
     });
 });
 
@@ -174,34 +192,58 @@ document.addEventListener('scroll', () => {
     });
 });
 
-// Hamburger menu logic
+// Enhanced Hamburger menu logic with animations
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobile-menu');
 const closeMobileMenu = document.getElementById('close-mobile-menu');
 if (hamburger && mobileMenu) {
   hamburger.addEventListener('click', () => {
     mobileMenu.classList.toggle('active');
+    hamburger.classList.toggle('active');
     hamburger.setAttribute('aria-expanded', mobileMenu.classList.contains('active'));
+    
+    // Prevent body scroll when menu is open
+    if (mobileMenu.classList.contains('active')) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
   });
   // Close menu when a link is clicked
   mobileMenu.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       mobileMenu.classList.remove('active');
+      hamburger.classList.remove('active');
       hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
     });
   });
   // Close menu when clicking the close icon
   if (closeMobileMenu) {
     closeMobileMenu.addEventListener('click', () => {
       mobileMenu.classList.remove('active');
+      hamburger.classList.remove('active');
       hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
     });
   }
-  // Optional: close menu when clicking outside
+  // Close menu when clicking outside or pressing escape
   document.addEventListener('click', (e) => {
     if (mobileMenu.classList.contains('active') && !mobileMenu.contains(e.target) && e.target !== hamburger) {
       mobileMenu.classList.remove('active');
+      hamburger.classList.remove('active');
       hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+  });
+  
+  // Close menu on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+      mobileMenu.classList.remove('active');
+      hamburger.classList.remove('active');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
     }
   });
 }
@@ -371,7 +413,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     skillCards.forEach((card, i) => {
-      card.addEventListener('click', () => { goToCoverflow(i); pauseAutoRotate(); setTimeout(resumeAutoRotate, 1000); });
+      card.addEventListener('click', () => { goToCoverflow(i); pauseAutoRotate(); setTimeout(resumeAutoRotate, 1500); });
       card.addEventListener('mouseenter', pauseAutoRotate);
       card.addEventListener('mouseleave', resumeAutoRotate);
     });
@@ -421,6 +463,68 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   applyTheme();
 
+  // Make theme toggle draggable on mobile
+  let isDragging = false;
+  let currentX;
+  let currentY;
+  let initialX;
+  let initialY;
+  let xOffset = 0;
+  let yOffset = 0;
+
+  function dragStart(e) {
+    if (window.innerWidth <= 900) {
+      e.preventDefault();
+      if (e.type === "touchstart") {
+        initialX = e.touches[0].clientX - xOffset;
+        initialY = e.touches[0].clientY - yOffset;
+      } else {
+        initialX = e.clientX - xOffset;
+        initialY = e.clientY - yOffset;
+      }
+
+      if (e.target === themeToggle || e.target.closest('.theme-toggle')) {
+        isDragging = true;
+      }
+    }
+  }
+
+  function dragEnd(e) {
+    initialX = currentX;
+    initialY = currentY;
+    isDragging = false;
+  }
+
+  function drag(e) {
+    if (isDragging && window.innerWidth <= 900) {
+      e.preventDefault();
+      
+      if (e.type === "touchmove") {
+        currentX = e.touches[0].clientX - initialX;
+        currentY = e.touches[0].clientY - initialY;
+      } else {
+        currentX = e.clientX - initialX;
+        currentY = e.clientY - initialY;
+      }
+
+      xOffset = currentX;
+      yOffset = currentY;
+
+      const activeToggle = themeToggle;
+      if (activeToggle) {
+        activeToggle.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+      }
+    }
+  }
+
+  // Add event listeners for dragging
+  document.addEventListener("touchstart", dragStart, false);
+  document.addEventListener("touchend", dragEnd, false);
+  document.addEventListener("touchmove", drag, false);
+  document.addEventListener("mousedown", dragStart, false);
+  document.addEventListener("mouseup", dragEnd, false);
+  document.addEventListener("mousemove", drag, false);
+
   // Initialize all animations when DOM is loaded
   document.addEventListener('DOMContentLoaded', () => {
       // Trigger skills animation and start auto-rotate when skills section is visible
@@ -438,3 +542,83 @@ document.addEventListener('DOMContentLoaded', function() {
       skillsObserver.observe(skillsSection);
   });
 }); 
+
+// Mobile-specific enhancements
+document.addEventListener('DOMContentLoaded', function() {
+    // Improve mobile scroll performance
+    let ticking = false;
+    function updateOnScroll() {
+        revealOnScroll();
+        ticking = false;
+    }
+    
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            requestAnimationFrame(updateOnScroll);
+            ticking = true;
+        }
+    });
+    
+    // Add swipe gestures for mobile navigation
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const swipeDistance = touchEndX - touchStartX;
+        
+        if (Math.abs(swipeDistance) > swipeThreshold) {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const hamburger = document.getElementById('hamburger');
+            
+            if (swipeDistance < 0 && !mobileMenu.classList.contains('active')) {
+                // Swipe left to open menu
+                mobileMenu.classList.add('active');
+                hamburger.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            } else if (swipeDistance > 0 && mobileMenu.classList.contains('active')) {
+                // Swipe right to close menu
+                mobileMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+    }
+    
+    document.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+    
+    document.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    });
+    
+    // Optimize animations for mobile devices
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile) {
+        // Reduce animation complexity on mobile for better performance
+        document.querySelectorAll('.reveal').forEach(el => {
+            el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+        });
+    }
+    
+    // Handle orientation changes
+    window.addEventListener('orientationchange', function() {
+        setTimeout(function() {
+            // Recalculate layouts after orientation change
+            if (typeof updateCoverflow === 'function') {
+                updateCoverflow();
+            }
+            
+            // Close mobile menu on orientation change
+            const mobileMenu = document.getElementById('mobile-menu');
+            const hamburger = document.getElementById('hamburger');
+            if (mobileMenu && mobileMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }, 100);
+    });
+});
