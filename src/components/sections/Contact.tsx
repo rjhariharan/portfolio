@@ -72,7 +72,7 @@ export default function Contact() {
   ];
 
   return (
-    <section id="contact" className="py-24 relative overflow-hidden bg-black/10">
+    <section id="contact" className="py-24 relative overflow-hidden bg-primary/[0.02] dark:bg-black/10">
       {/* Background neon light blob */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl rounded-full bg-accent-indigo/5 blur-[130px] -z-10 pointer-events-none" />
 
@@ -99,7 +99,7 @@ export default function Contact() {
           {/* Info Side (ColSpan 2) */}
           <div className="lg:col-span-2 flex flex-col justify-between">
             <div>
-              <h3 className="text-2xl font-bold font-display mb-6 text-white">Contact Info</h3>
+              <h3 className="text-2xl font-bold font-display mb-6 text-primary">Contact Info</h3>
               <div className="space-y-5 mb-10">
                 {contactDetails.map((detail, idx) => {
                   const Icon = detail.icon;
@@ -112,7 +112,7 @@ export default function Contact() {
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: idx * 0.1 }}
                       key={detail.label}
-                      className="flex items-center space-x-4 p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-accent-blue/20 hover:bg-white/[0.04] transition-all duration-300"
+                      className="flex items-center space-x-4 p-4 rounded-2xl card-bg card-bg-hover transition-all duration-300"
                     >
                       <div className="w-12 h-12 rounded-xl bg-accent-blue/10 flex items-center justify-center text-accent-blue border border-accent-blue/10 shrink-0">
                         <Icon size={18} />
@@ -123,17 +123,17 @@ export default function Contact() {
                           {isLink ? (
                             <a 
                               href={detail.href} 
-                              className="font-semibold text-white hover:text-accent-blue transition-colors text-sm sm:text-base break-all"
+                              className="font-semibold text-primary hover:text-accent-blue transition-colors text-sm sm:text-base break-all"
                             >
                               {detail.value}
                             </a>
                           ) : (
-                            <p className="font-semibold text-white text-sm sm:text-base">{detail.value}</p>
+                            <p className="font-semibold text-primary text-sm sm:text-base">{detail.value}</p>
                           )}
                           {isCopyable && (
                             <button
                               onClick={(e) => handleCopy(e, detail.value, detail.label)}
-                              className="ml-2.5 p-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/15 text-secondary hover:text-white transition-all focus:outline-none"
+                              className="ml-2.5 p-1 rounded-lg bg-primary/5 dark:bg-white/5 hover:bg-primary/10 dark:hover:bg-white/10 border border-primary/5 dark:border-white/5 hover:border-primary/15 dark:hover:border-white/15 text-secondary hover:text-primary transition-all focus:outline-none"
                               title={`Copy ${detail.label}`}
                             >
                               {copiedText === detail.label ? (
@@ -153,7 +153,7 @@ export default function Contact() {
 
             {/* Social Panel */}
             <div>
-              <h4 className="text-sm font-bold uppercase tracking-widest text-white/50 mb-4 font-mono">
+              <h4 className="text-sm font-bold uppercase tracking-widest text-secondary/50 mb-4 font-mono">
                 Follow Digital Profiles
               </h4>
               <div className="flex space-x-4">
@@ -183,7 +183,7 @@ export default function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="p-8 rounded-3xl bg-white/[0.02] border border-white/5 backdrop-blur-xl"
+              className="p-8 rounded-3xl card-bg backdrop-blur-xl"
             >
               <form onSubmit={handleSubmit} className="space-y-6">
                 
@@ -199,7 +199,7 @@ export default function Contact() {
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-[#08080c] border border-white/5 focus:border-accent-blue focus:ring-[0.5px] focus:ring-accent-blue outline-none transition-all text-white text-sm"
+                      className="w-full px-4 py-3 rounded-xl input-bg focus:border-accent-blue focus:ring-[0.5px] focus:ring-accent-blue outline-none transition-all text-sm"
                       placeholder="Jane Doe"
                     />
                   </div>
@@ -213,7 +213,7 @@ export default function Contact() {
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-[#08080c] border border-white/5 focus:border-accent-blue focus:ring-[0.5px] focus:ring-accent-blue outline-none transition-all text-white text-sm"
+                      className="w-full px-4 py-3 rounded-xl input-bg focus:border-accent-blue focus:ring-[0.5px] focus:ring-accent-blue outline-none transition-all text-sm"
                       placeholder="jane@example.com"
                     />
                   </div>
@@ -230,7 +230,7 @@ export default function Contact() {
                     required
                     value={subject}
                     onChange={(e) => setSubject(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl bg-[#08080c] border border-white/5 focus:border-accent-blue focus:ring-[0.5px] focus:ring-accent-blue outline-none transition-all text-white text-sm"
+                    className="w-full px-4 py-3 rounded-xl input-bg focus:border-accent-blue focus:ring-[0.5px] focus:ring-accent-blue outline-none transition-all text-sm"
                     placeholder="Project Inquiry / Job Opportunity"
                   />
                 </div>
@@ -246,7 +246,7 @@ export default function Contact() {
                     required
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl bg-[#08080c] border border-white/5 focus:border-accent-blue focus:ring-[0.5px] focus:ring-accent-blue outline-none transition-all text-white text-sm resize-none"
+                    className="w-full px-4 py-3 rounded-xl input-bg focus:border-accent-blue focus:ring-[0.5px] focus:ring-accent-blue outline-none transition-all text-sm resize-none"
                     placeholder="Describe how I can assist you..."
                   />
                 </div>

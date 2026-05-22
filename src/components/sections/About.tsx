@@ -62,7 +62,7 @@ export default function About() {
 
 
   return (
-    <section id="about" className="py-24 relative overflow-hidden bg-black/15">
+    <section id="about" className="py-24 relative overflow-hidden section-alt">
       {/* Background spotlights */}
       <div className="absolute top-1/4 left-0 w-80 h-80 rounded-full bg-accent-blue/5 blur-[120px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-0 w-80 h-80 rounded-full bg-accent-fuchsia/5 blur-[120px] pointer-events-none" />
@@ -94,20 +94,20 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="md:col-span-2 p-6 sm:p-8 rounded-3xl bg-white/[0.02] border border-white/5 flex flex-col justify-between"
+            className="md:col-span-2 p-6 sm:p-8 rounded-3xl card-bg flex flex-col justify-between"
           >
             <div>
               <span className="text-[10px] uppercase font-mono tracking-widest text-accent-blue mb-2 block">Metrics</span>
-              <h3 className="text-xl font-bold font-display text-white mb-6">Capabilities by the Numbers</h3>
+              <h3 className="text-xl font-bold font-display text-primary mb-6">Capabilities by the Numbers</h3>
             </div>
             
             <div className="grid grid-cols-2 gap-4 sm:gap-6">
               {stats.map((s, idx) => (
-                <div key={idx} className="p-4 rounded-2xl bg-white/[0.01] border border-white/5">
+                <div key={idx} className="p-4 rounded-2xl bg-primary/[0.02] dark:bg-white/[0.01] border border-primary/[0.06] dark:border-white/5">
                   <span className="text-3xl sm:text-4xl font-extrabold font-display bg-clip-text text-transparent bg-gradient-to-r from-accent-blue to-accent-indigo block mb-1">
                     {s.value}
                   </span>
-                  <span className="text-xs sm:text-sm font-semibold text-white block mb-0.5">{s.label}</span>
+                  <span className="text-xs sm:text-sm font-semibold text-primary block mb-0.5">{s.label}</span>
                   <span className="text-[10px] sm:text-xs text-secondary/50 block font-mono">{s.desc}</span>
                 </div>
               ))}
@@ -120,7 +120,7 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="p-6 sm:p-8 rounded-3xl bg-white/[0.02] border border-white/5 flex flex-col justify-between group hover:border-accent-indigo/20 transition-all duration-300"
+            className="p-6 sm:p-8 rounded-3xl card-bg flex flex-col justify-between group hover:border-accent-indigo/20 transition-all duration-300"
           >
             <div>
               <div className="flex items-center justify-between mb-4">
@@ -130,7 +130,7 @@ export default function About() {
                   <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
                 </span>
               </div>
-              <h3 className="text-xl font-bold font-display text-white mb-4">Currently Building</h3>
+              <h3 className="text-xl font-bold font-display text-primary mb-4">Currently Building</h3>
               <p className="text-xs sm:text-sm text-secondary/70 leading-relaxed mb-6">
                 Integrating secure API communication patterns with AES payload decryption workflows.
               </p>
@@ -158,22 +158,22 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="p-6 sm:p-8 rounded-3xl bg-white/[0.02] border border-white/5 flex flex-col justify-between"
+            className="p-6 sm:p-8 rounded-3xl card-bg flex flex-col justify-between"
           >
             <div>
               <span className="text-[10px] uppercase font-mono tracking-widest text-accent-fuchsia mb-2 block">Coordinates</span>
-              <h3 className="text-xl font-bold font-display text-white mb-4">Location & Time</h3>
+              <h3 className="text-xl font-bold font-display text-primary mb-4">Location & Time</h3>
             </div>
 
             <div className="my-4">
               <div className="flex items-center space-x-3 text-secondary/70 mb-2">
                 <FaCompass className="text-accent-fuchsia shrink-0" size={16} />
-                <span className="text-xs sm:text-sm font-semibold text-white">Mayiladuthurai, TN, India</span>
+                <span className="text-xs sm:text-sm font-semibold text-primary">Mayiladuthurai, TN, India</span>
               </div>
               <p className="text-[11px] font-mono text-secondary/40 ml-7">11.1085° N, 79.6548° E</p>
             </div>
 
-            <div className="border-t border-white/5 pt-4 flex items-center justify-between">
+            <div className="border-t border-muted pt-4 flex items-center justify-between">
               <div className="flex items-center space-x-2 text-secondary/50">
                 <FaClock size={14} />
                 <span className="text-xs uppercase font-mono">IST</span>
@@ -190,28 +190,28 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="md:col-span-2 p-6 sm:p-8 rounded-3xl bg-white/[0.02] border border-white/5 flex flex-col justify-between"
+            className="md:col-span-2 p-6 sm:p-8 rounded-3xl card-bg flex flex-col justify-between"
           >
             <div>
               <span className="text-[10px] uppercase font-mono tracking-widest text-accent-blue mb-2 block">Evolution</span>
-              <h3 className="text-xl font-bold font-display text-white mb-6">Journey Timeline</h3>
+              <h3 className="text-xl font-bold font-display text-primary mb-6">Journey Timeline</h3>
             </div>
 
             {/* Scrollable Timeline Box */}
             <div 
               data-lenis-prevent
-              className="max-h-60 overflow-y-auto pr-2 space-y-4 scrollbar-thin"
+              className="md:max-h-60 md:overflow-y-auto pr-2 space-y-4 scrollbar-thin overflow-y-visible max-h-none"
             >
               {timeline.map((item, idx) => {
                 const Icon = item.icon;
                 return (
-                  <div key={idx} className="flex gap-4 p-3 rounded-xl bg-white/[0.01] border border-white/5 hover:bg-white/[0.02] transition-colors">
+                  <div key={idx} className="flex gap-4 p-3 rounded-xl bg-primary/[0.02] dark:bg-white/[0.01] border border-primary/[0.05] dark:border-white/5 hover:bg-primary/[0.04] dark:hover:bg-white/[0.02] transition-colors">
                     <div className={`w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center shrink-0 ${item.color}`}>
                       <Icon size={16} />
                     </div>
                     <div>
                       <div className="flex items-center justify-between gap-2 mb-1">
-                        <span className="text-sm font-bold text-white">{item.title}</span>
+                        <span className="text-sm font-bold text-primary">{item.title}</span>
                         <span className="text-[10px] font-mono text-secondary/40 px-2 py-0.5 bg-white/5 rounded-full uppercase">
                           {item.period}
                         </span>

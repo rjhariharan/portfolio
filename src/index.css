@@ -1,21 +1,76 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap');
 
+:root {
+  --color-background: #f8fafc;
+  --color-card-bg: #ffffff;
+  --color-primary: #0f172a;
+  --color-secondary: #475569;
+  --color-scroll-track: #f1f5f9;
+  --color-scroll-thumb: #cbd5e1;
+}
+
+.dark {
+  --color-background: #030303;
+  --color-card-bg: #09090b;
+  --color-primary: #ffffff;
+  --color-secondary: #a3a3a3;
+  --color-scroll-track: #030303;
+  --color-scroll-thumb: #1f1f23;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   html {
-    scroll-behavior: initial; /* Lenis handles this */
+    scroll-behavior: initial; /* Lenis handles this on desktop */
     scroll-padding-top: 80px;
+    /* Allow native vertical scroll — critical for mobile touch performance */
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
   }
   
   body {
     @apply bg-background text-primary font-sans antialiased overflow-x-hidden selection:bg-accent-indigo/30 selection:text-white;
+    /* Allow native vertical scroll on body */
+    touch-action: pan-y;
   }
 
   h1, h2, h3, h4 {
     @apply font-display;
+  }
+}
+
+/* ——— Mobile Performance Optimizations ——— */
+
+/* Promote animated blobs to GPU compositor layer */
+.animate-blob, .animate-glow-pulse {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+/* Reduce motion for users who prefer it + on mobile */
+@media (max-width: 767px) {
+  /* Disable heavy blur animations entirely on mobile */
+  .animate-blob {
+    animation: none !important;
+  }
+  .animate-glow-pulse {
+    animation: none !important;
+  }
+  /* Disable floating badge animations on mobile */
+  .animate-float-slow, .animate-float-medium, .animate-float-fast {
+    animation: none !important;
+  }
+  /* Remove backdrop-blur on mobile \u2014 major GPU cost */
+  .backdrop-blur-xl {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  .backdrop-blur-2xl {
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
   }
 }
 
@@ -24,15 +79,20 @@
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #030303;
+  background: var(--color-scroll-track);
 }
 ::-webkit-scrollbar-thumb {
-  background: #1f1f23;
+  background: var(--color-scroll-thumb);
   border-radius: 4px;
-  border: 2px solid #030303;
+  border: 2px solid var(--color-scroll-track);
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #3b82f6;
+}
+
+/* Global scroll offset for floating header */
+section {
+  scroll-margin-top: 100px;
 }
 
 /* Lenis styles */
@@ -65,11 +125,93 @@ html.lenis, html.lenis body {
 
 /* UI Utilities */
 .glass-panel {
-  @apply bg-white/[0.02] border border-white/10 backdrop-blur-xl shadow-2xl;
+  @apply bg-black/[0.01] border border-black/5 dark:bg-white/[0.02] dark:border-white/10 backdrop-blur-xl shadow-xl dark:shadow-2xl;
 }
 
 .glass-card {
-  @apply bg-white/[0.02] border border-white/10 backdrop-blur-md hover:bg-white/[0.04] hover:border-white/20 transition-all duration-300;
+  @apply bg-black/[0.01] border border-black/5 dark:bg-white/[0.02] dark:border-white/10 backdrop-blur-md hover:bg-black/[0.03] hover:border-black/10 dark:hover:bg-white/[0.04] dark:hover:border-white/20 transition-all duration-300;
+}
+
+/* ——— Semantic layout helpers ——— */
+
+/* Section alternate rows - plain bg-black opacity variants work in @apply */
+.section-alt {
+  @apply bg-black/5 dark:bg-black/15;
+}
+.section-alt-2 {
+  @apply bg-black/[0.03] dark:bg-black/30;
+}
+.section-alt-3 {
+  @apply bg-black/[0.02] dark:bg-black/40;
+}
+
+/* Cards and panels - use plain CSS since bg-primary/[n] fails in @apply with CSS vars */
+.card-bg {
+  background-color: rgba(15, 23, 42, 0.02);
+  border: 1px solid rgba(15, 23, 42, 0.06);
+}
+.dark .card-bg {
+  background-color: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.card-bg-hover:hover {
+  background-color: rgba(15, 23, 42, 0.04);
+  border-color: rgba(15, 23, 42, 0.10);
+}
+.dark .card-bg-hover:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.10);
+}
+
+.card-dark-bg {
+  background-color: rgba(15, 23, 42, 0.04);
+}
+.dark .card-dark-bg {
+  background-color: #050508;
+}
+
+/* Input fields */
+.input-bg {
+  background-color: rgba(15, 23, 42, 0.03);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  color: var(--color-primary);
+}
+.dark .input-bg {
+  background-color: #08080c;
+  border-color: rgba(255, 255, 255, 0.05);
+}
+.input-bg::placeholder {
+  color: var(--color-secondary);
+  opacity: 0.4;
+}
+
+/* Inline code/tech tag pills */
+.tag-pill {
+  color: var(--color-secondary);
+  opacity: 0.9;
+  background-color: rgba(15, 23, 42, 0.05);
+  border: 1px solid rgba(15, 23, 42, 0.05);
+}
+.dark .tag-pill {
+  color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.05);
+  opacity: 1;
+}
+
+/* Border separators */
+.border-muted {
+  border-color: rgba(15, 23, 42, 0.06);
+}
+.dark .border-muted {
+  border-color: rgba(255, 255, 255, 0.05);
+}
+.border-hover:hover {
+  border-color: rgba(15, 23, 42, 0.15);
+}
+.dark .border-hover:hover {
+  border-color: rgba(255, 255, 255, 0.20);
 }
 
 .text-gradient {
@@ -111,9 +253,15 @@ html.lenis, html.lenis body {
 /* Background grid utility */
 .bg-grid-pattern {
   background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+.dark .bg-grid-pattern {
+  background-image: 
     linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  background-size: 50px 50px;
 }
 
 /* Typing cursor animation */

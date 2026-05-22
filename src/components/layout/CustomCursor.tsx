@@ -152,18 +152,15 @@ export default function CustomCursor() {
 
     setupInteractiveHover();
 
-    // Re-setup hovers if DOM changes
-    const observer = new MutationObserver(() => {
-      setupInteractiveHover();
-    });
-
-    observer.observe(document.body, { childList: true, subtree: true });
+    // Do a one-time delayed re-attach to catch dynamically mounted elements
+    // (replaces MutationObserver which thrashed the main thread on every DOM mutation)
+    const retryTimer = setTimeout(() => setupInteractiveHover(), 1500);
 
     return () => {
+      clearTimeout(retryTimer);
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('mousedown', onMouseDown);
       window.removeEventListener('mouseup', onMouseUp);
-      observer.disconnect();
       
       const interactiveElements = document.querySelectorAll(
         'a, button, input, textarea, select, [role="button"], .glow-card'

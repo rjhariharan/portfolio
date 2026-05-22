@@ -90,13 +90,13 @@ function HolographicCard({ cert }: { cert: Certification }) {
         <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${cert.color} p-[1px] flex items-center justify-center mb-6`}
              style={{ boxShadow: `0 0 15px ${cert.glowColor}` }}
         >
-          <div className="w-full h-full bg-[#08080c] rounded-2xl flex items-center justify-center text-white group-hover:text-accent-indigo transition-colors duration-300">
+          <div className="w-full h-full bg-primary/[0.04] dark:bg-[#08080c] rounded-2xl flex items-center justify-center text-primary group-hover:text-accent-indigo transition-colors duration-300">
             <IconComponent size={24} />
           </div>
         </div>
 
         {/* Title & Info */}
-        <h3 className="text-2xl font-bold mb-2 text-white group-hover:text-accent-blue transition-colors duration-300 font-display">
+        <h3 className="text-2xl font-bold mb-2 text-primary group-hover:text-accent-blue transition-colors duration-300 font-display">
           {cert.title}
         </h3>
         <p className="text-xs font-semibold text-accent-indigo mb-4 uppercase tracking-wider font-mono">
@@ -111,7 +111,7 @@ function HolographicCard({ cert }: { cert: Certification }) {
           <span className="text-[10px] uppercase font-mono tracking-widest text-secondary/40 block">Skill Binds</span>
           <div className="flex flex-wrap gap-1.5">
             {cert.associatedSkills.map((sk) => (
-              <span key={sk} className="text-[9px] font-mono text-white/50 bg-white/5 border border-white/5 px-2 py-0.5 rounded-full">
+              <span key={sk} className="tag-pill text-[9px] font-mono px-2 py-0.5 rounded-full">
                 {sk}
               </span>
             ))}
@@ -137,7 +137,7 @@ function HolographicCard({ cert }: { cert: Certification }) {
 
 export default function Certifications() {
   return (
-    <section id="certifications" className="py-24 relative overflow-hidden bg-black/30">
+    <section id="certifications" className="py-24 relative overflow-hidden section-alt-2">
       {/* Decorative Blob */}
       <div className="absolute right-0 top-1/2 -translate-y-1/2 w-72 h-72 rounded-full bg-accent-indigo/5 blur-[120px] pointer-events-none" />
 

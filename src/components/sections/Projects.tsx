@@ -156,7 +156,7 @@ export default function Projects() {
   };
 
   return (
-    <section id="projects" className="py-24 relative overflow-hidden bg-black/10">
+    <section id="projects" className="py-24 relative overflow-hidden bg-primary/[0.02] dark:bg-black/10">
       {/* Glow spot */}
       <div className="absolute top-1/3 right-0 w-[500px] h-[500px] bg-accent-blue/5 blur-[130px] rounded-full pointer-events-none -z-10" />
 
@@ -221,7 +221,7 @@ export default function Projects() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="relative rounded-2xl overflow-hidden border border-white/10 bg-black/40 h-64 md:h-72 flex items-center justify-center group"
+                    className="relative rounded-2xl overflow-hidden border border-primary/[0.08] dark:border-white/10 bg-primary/[0.04] dark:bg-black/40 h-64 md:h-72 flex items-center justify-center group"
                   >
                     <img 
                       src={activeProject.images[imageIndex]} 
@@ -235,13 +235,13 @@ export default function Projects() {
                       <>
                         <button
                           onClick={handlePrevImage}
-                          className="absolute left-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/70 border border-white/10 flex items-center justify-center text-white hover:bg-black transition-colors"
+                          className="absolute left-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-cardBg/70 dark:bg-black/70 border border-primary/10 dark:border-white/10 flex items-center justify-center text-primary dark:text-white hover:bg-cardBg dark:hover:bg-black transition-colors"
                         >
                           <FaChevronLeft size={12} />
                         </button>
                         <button
                           onClick={handleNextImage}
-                          className="absolute right-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/70 border border-white/10 flex items-center justify-center text-white hover:bg-black transition-colors"
+                          className="absolute right-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-cardBg/70 dark:bg-black/70 border border-primary/10 dark:border-white/10 flex items-center justify-center text-primary dark:text-white hover:bg-cardBg dark:hover:bg-black transition-colors"
                         >
                           <FaChevronRight size={12} />
                         </button>
@@ -283,7 +283,7 @@ export default function Projects() {
                                 {/* Pulsing ring indicator */}
                                 <span className="absolute inset-0 rounded-xl border border-accent-indigo/20 animate-ping opacity-25" />
                               </div>
-                              <span className="text-[10px] font-mono mt-2 text-center text-white/80 whitespace-nowrap">{node.name}</span>
+                              <span className="text-[10px] font-mono mt-2 text-center text-primary/80 dark:text-white/80 whitespace-nowrap">{node.name}</span>
                             </div>
                             
                             {!isLast && (
@@ -311,7 +311,7 @@ export default function Projects() {
                 {activeProject.metrics.map((m, i) => (
                   <div key={i} className="text-center font-mono border-r border-white/5 last:border-r-0">
                     <span className="text-xs text-secondary/40 block uppercase tracking-wider mb-1">{m.label}</span>
-                    <span className="text-sm font-bold text-white block">{m.value}</span>
+                    <span className="text-sm font-bold text-primary block">{m.value}</span>
                   </div>
                 ))}
               </div>
@@ -319,7 +319,7 @@ export default function Projects() {
               {/* Specifications Area */}
               <div className="mt-6 space-y-4">
                 <div>
-                  <h3 className="text-xl font-bold font-display text-white mb-1.5">{activeProject.title}</h3>
+                  <h3 className="text-xl font-bold font-display text-primary mb-1.5">{activeProject.title}</h3>
                   <p className="text-xs text-secondary/70 leading-relaxed">{activeProject.longDescription}</p>
                 </div>
 
@@ -342,7 +342,7 @@ export default function Projects() {
             <div className="px-6 py-4 bg-[#050508] border-t border-white/5 flex items-center justify-between flex-wrap gap-4 select-none">
               <div className="flex flex-wrap gap-1.5">
                 {activeProject.tech.map((t) => (
-                  <span key={t} className="text-[9px] font-mono text-white/50 bg-white/5 border border-white/5 px-2 py-0.5 rounded-full">
+                  <span key={t} className="tag-pill text-[9px] font-mono px-2 py-0.5 rounded-full">
                     {t}
                   </span>
                 ))}
@@ -368,7 +368,7 @@ export default function Projects() {
                     href={activeProject.github} 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/10 text-xs font-mono font-semibold text-white transition-all"
+                    className="flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-primary/5 dark:bg-white/5 hover:bg-primary/10 dark:hover:bg-white/10 border border-primary/5 dark:border-white/5 hover:border-primary/10 dark:hover:border-white/10 text-xs font-mono font-semibold text-primary transition-all"
                   >
                     <FaGithub size={12} />
                     <span>Repository</span>
@@ -404,8 +404,8 @@ export default function Projects() {
                   }}
                   className={`w-full text-left p-4 rounded-2xl border transition-all duration-300 relative overflow-hidden glow-card ${
                     isActive 
-                      ? 'bg-gradient-to-r from-accent-blue/10 to-accent-indigo/10 border-accent-blue/30 text-white' 
-                      : 'bg-white/[0.01] border-white/5 text-secondary hover:border-white/20 hover:text-white'
+                      ? 'bg-gradient-to-r from-accent-blue/10 to-accent-indigo/10 border-accent-blue/30 text-primary' 
+                      : 'bg-primary/[0.01] dark:bg-white/[0.01] border-primary/[0.06] dark:border-white/5 text-secondary hover:border-primary/15 dark:hover:border-white/20 hover:text-primary'
                   }`}
                 >
                   <div className="flex justify-between items-center mb-1">

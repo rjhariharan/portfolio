@@ -13,6 +13,15 @@ export default function Hero() {
     "Mobile App Developer"
   ];
 
+  // Detect mobile for performance optimizations
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check, { passive: true });
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
   // Custom Typewriter logic
   const [roleText, setRoleText] = useState("");
   const [roleIndex, setRoleIndex] = useState(0);
@@ -60,16 +69,18 @@ export default function Hero() {
   ];
 
   return (
-    <section id="home" className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-[#030303]">
-      {/* 3D Background */}
-      <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
-        <Canvas camera={{ position: [0, 0, 1] }}>
-          <Stars radius={100} depth={50} count={6000} factor={6} saturation={0} fade speed={1.2} />
-        </Canvas>
-      </div>
+    <section id="home" className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-background">
+      {/* 3D Background — skip WebGL canvas entirely on mobile for performance */}
+      {!isMobile && (
+        <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
+          <Canvas camera={{ position: [0, 0, 1] }}>
+            <Stars radius={100} depth={50} count={4000} factor={6} saturation={0} fade speed={1.2} />
+          </Canvas>
+        </div>
+      )}
 
-      {/* Radiant glow background */}
-      <div className="absolute top-1/4 left-1/4 w-[50vw] h-[50vw] rounded-full bg-accent-indigo/5 blur-[120px] pointer-events-none animate-glow-pulse -z-10" />
+      {/* Radiant glow background — static on mobile, animated on desktop */}
+      <div className={`absolute top-1/4 left-1/4 w-[50vw] h-[50vw] rounded-full bg-accent-indigo/5 blur-[120px] pointer-events-none -z-10 ${!isMobile ? 'animate-glow-pulse' : ''}`} />
 
       <div className="container mx-auto px-6 md:px-12 z-10 flex flex-col-reverse lg:flex-row items-center justify-between mt-12 md:mt-20">
         
@@ -81,12 +92,12 @@ export default function Hero() {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             {/* Tagline label */}
-            <div className="inline-flex items-center space-x-2 bg-white/5 border border-white/10 px-3 py-1 rounded-full text-xs font-mono tracking-widest text-accent-blue uppercase mb-6">
+            <div className="inline-flex items-center space-x-2 bg-primary/5 dark:bg-white/5 border border-primary/10 dark:border-white/10 px-3 py-1 rounded-full text-xs font-mono tracking-widest text-accent-blue uppercase mb-6">
               <span className="w-2 h-2 rounded-full bg-accent-blue animate-pulse" />
               <span>Available for Opportunities</span>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold font-display tracking-tight mb-4 text-white">
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold font-display tracking-tight mb-4 text-primary">
               Hi, I'm <span className="text-gradient">R.J. Hariharan</span>
             </h1>
             
@@ -94,7 +105,7 @@ export default function Hero() {
             <div className="h-10 sm:h-12 mb-6">
               <p className="text-xl sm:text-2xl lg:text-3xl text-secondary font-light">
                 I build things as a{" "}
-                <span className="text-white font-semibold typing-cursor">
+                <span className="text-primary dark:text-white font-semibold typing-cursor">
                   {roleText}
                 </span>
               </p>
@@ -122,7 +133,7 @@ export default function Hero() {
                   href="https://github.com/rjhariharan" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="p-3.5 bg-white/5 border border-white/10 rounded-full hover:border-accent-blue hover:text-accent-blue hover:bg-white/10 transition-all duration-300 hover:scale-110"
+                  className="p-3.5 bg-primary/5 dark:bg-white/5 border border-primary/10 dark:border-white/10 rounded-full hover:border-accent-blue hover:text-accent-blue hover:bg-primary/10 dark:hover:bg-white/10 transition-all duration-300 hover:scale-110"
                   aria-label="GitHub Profile"
                 >
                   <FaGithub size={20} />
@@ -131,7 +142,7 @@ export default function Hero() {
                   href="https://in.linkedin.com/in/rjhariharan" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="p-3.5 bg-white/5 border border-white/10 rounded-full hover:border-accent-indigo hover:text-accent-indigo hover:bg-white/10 transition-all duration-300 hover:scale-110"
+                  className="p-3.5 bg-primary/5 dark:bg-white/5 border border-primary/10 dark:border-white/10 rounded-full hover:border-accent-indigo hover:text-accent-indigo hover:bg-primary/10 dark:hover:bg-white/10 transition-all duration-300 hover:scale-110"
                   aria-label="LinkedIn Profile"
                 >
                   <FaLinkedin size={20} />
@@ -168,7 +179,7 @@ export default function Hero() {
                 return (
                   <div 
                     key={idx}
-                    className={`absolute ${badge.position} ${badge.animation} w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xl flex items-center justify-center shadow-lg ${badge.shadow}`}
+                    className={`absolute ${badge.position} ${badge.animation} w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-primary/[0.03] dark:bg-white/5 border border-primary/[0.08] dark:border-white/10 backdrop-blur-xl flex items-center justify-center shadow-lg ${badge.shadow}`}
                   >
                     <BadgeIcon className={`${badge.color} text-lg sm:text-xl`} />
                   </div>

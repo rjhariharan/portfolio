@@ -5,6 +5,8 @@ import App from './App.tsx'
 
 import React from 'react';
 
+import { ThemeProvider } from './context/ThemeContext';
+
 class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasError: boolean, error: Error | null}> {
   constructor(props: {children: React.ReactNode}) {
     super(props);
@@ -25,10 +27,18 @@ class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasErr
   }
 }
 
-createRoot(document.getElementById('root')!).render(
+const container = document.getElementById('root')!;
+const root = (window as any)._reactRoot || createRoot(container);
+if (!(window as any)._reactRoot) {
+  (window as any)._reactRoot = root;
+}
+
+root.render(
   <StrictMode>
     <ErrorBoundary>
-      <App />
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
     </ErrorBoundary>
   </StrictMode>
 )

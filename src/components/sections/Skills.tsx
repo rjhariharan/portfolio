@@ -271,7 +271,7 @@ export default function Skills() {
   };
 
   return (
-    <section id="skills" className="py-24 relative overflow-hidden bg-black/40">
+    <section id="skills" className="py-24 relative overflow-hidden section-alt-3">
       {/* Moving background spotlight gradients */}
       <div className="absolute top-1/3 left-1/4 w-[400px] h-[400px] rounded-full bg-accent-blue/5 blur-[120px] pointer-events-none -z-10 animate-pulse" />
       <div className="absolute bottom-10 right-1/3 w-[350px] h-[350px] rounded-full bg-accent-fuchsia/5 blur-[110px] pointer-events-none -z-10 animate-glow-pulse" />
@@ -314,8 +314,8 @@ export default function Skills() {
                 }}
                 className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono border transition-all duration-300 ${
                   isActive
-                    ? 'bg-gradient-to-r from-accent-blue/20 to-accent-indigo/20 border-accent-blue/40 text-white shadow-lg'
-                    : 'bg-white/[0.01] border-white/5 text-secondary hover:border-white/20 hover:text-white'
+                    ? 'bg-gradient-to-r from-accent-blue/20 to-accent-indigo/20 border-accent-blue/40 text-primary shadow-lg'
+                    : 'bg-primary/[0.01] dark:bg-white/[0.01] border-primary/[0.06] dark:border-white/5 text-secondary hover:border-primary/15 dark:hover:border-white/20 hover:text-primary'
                 }`}
               >
                 <CatIcon size={12} />
@@ -399,7 +399,7 @@ export default function Skills() {
                       <motion.span
                         initial={{ opacity: 0, y: 5 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="absolute top-14 left-1/2 -translate-x-1/2 text-[9px] font-mono font-semibold bg-black/90 border border-white/10 px-2 py-0.5 rounded-full text-white whitespace-nowrap"
+                        className="absolute top-14 left-1/2 -translate-x-1/2 text-[9px] font-mono font-semibold bg-cardBg/90 dark:bg-black/90 border border-primary/10 dark:border-white/10 px-2 py-0.5 rounded-full text-primary dark:text-white whitespace-nowrap"
                       >
                         {node.name}
                       </motion.span>
@@ -428,7 +428,7 @@ export default function Skills() {
               
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-2xl font-bold font-display text-white mb-1">{displayNode.name}</h3>
+                  <h3 className="text-2xl font-bold font-display text-primary mb-1">{displayNode.name}</h3>
                   <span className="text-[10px] font-mono uppercase tracking-wider text-accent-blue px-2 py-0.5 bg-accent-blue/10 border border-accent-blue/20 rounded-full">
                     {displayNode.category}
                   </span>
@@ -445,7 +445,7 @@ export default function Skills() {
               <div className="space-y-4 pt-4 border-t border-white/5">
                 <div>
                   <h4 className="text-[10px] uppercase font-mono tracking-wider text-secondary/40 mb-1">Exposure</h4>
-                  <p className="text-sm font-semibold text-white">{displayNode.experience}</p>
+                  <p className="text-sm font-semibold text-primary">{displayNode.experience}</p>
                 </div>
 
                 <div>
@@ -473,7 +473,7 @@ export default function Skills() {
 
                 <div>
                   <h4 className="text-[10px] uppercase font-mono tracking-wider text-secondary/40 mb-1">Architecture Capability</h4>
-                  <p className="text-xs text-secondary/60 leading-relaxed font-mono bg-black/40 border border-white/5 p-3 rounded-xl">
+                  <p className="text-xs text-secondary/60 leading-relaxed font-mono bg-primary/[0.03] dark:bg-black/40 border border-primary/[0.06] dark:border-white/5 p-3 rounded-xl">
                     {displayNode.capabilities}
                   </p>
                 </div>

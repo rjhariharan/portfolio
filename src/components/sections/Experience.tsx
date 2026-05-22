@@ -197,7 +197,7 @@ function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: strin
     });
   }, [springValue, suffix]);
 
-  return <span ref={ref} className="text-3xl md:text-4xl font-bold font-display text-white">0</span>;
+  return <span ref={ref} className="text-3xl md:text-4xl font-bold font-display text-primary">0</span>;
 }
 
 interface MissionNodeButtonProps {
@@ -214,8 +214,8 @@ function MissionNodeButton({ mission, isActive, onClick }: MissionNodeButtonProp
       onClick={onClick}
       className={`w-full text-left p-5 rounded-2xl border transition-all duration-300 relative flex items-start gap-4 glow-card ${
         isActive 
-          ? 'bg-gradient-to-r from-accent-indigo/10 to-accent-fuchsia/10 border-accent-indigo/30 text-white shadow-[0_0_20px_rgba(99,102,241,0.05)]' 
-          : 'bg-white/[0.01] border-white/5 text-secondary hover:border-white/20 hover:text-white'
+          ? 'bg-gradient-to-r from-accent-indigo/10 to-accent-fuchsia/10 border-accent-indigo/30 text-primary shadow-[0_0_20px_rgba(99,102,241,0.05)]' 
+          : 'bg-primary/[0.01] dark:bg-white/[0.01] border-primary/[0.05] dark:border-white/5 text-secondary hover:border-primary/15 dark:hover:border-white/20 hover:text-primary'
       }`}
     >
       {/* Status Ping LED */}
@@ -276,7 +276,7 @@ export default function Experience() {
   }, [activeIdx]);
 
   return (
-    <section id="experience" className="py-24 relative overflow-hidden bg-black/40">
+    <section id="experience" className="py-24 relative overflow-hidden section-alt-3">
       {/* Background neon radial glow */}
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-80 h-80 rounded-full bg-accent-indigo/5 blur-[120px] pointer-events-none -z-10 animate-glow-pulse" />
 
@@ -342,10 +342,10 @@ export default function Experience() {
           </div>
 
           {/* Right panel: Active terminal mission logs & Architecture (Cols 8) */}
-          <div className="lg:col-span-8 rounded-3xl bg-[#030303]/40 border border-white/5 flex flex-col justify-between overflow-hidden relative shadow-2xl backdrop-blur-md">
+          <div className="lg:col-span-8 rounded-3xl bg-cardBg/40 dark:bg-[#030303]/40 border border-primary/5 dark:border-white/5 flex flex-col justify-between overflow-hidden relative shadow-xl dark:shadow-2xl backdrop-blur-md">
             
             {/* Header window control bar */}
-            <div className="px-6 py-4 bg-[#050508] border-b border-white/5 flex items-center justify-between select-none">
+            <div className="px-6 py-4 bg-primary/[0.03] dark:bg-[#050508] border-b border-primary/[0.06] dark:border-white/5 flex items-center justify-between select-none">
               <div className="flex items-center space-x-2 text-[10px] font-mono tracking-wider">
                 <FaTerminal className="text-accent-indigo animate-pulse" />
                 <span className="text-secondary/40">node_telemetry_handler.sh</span>
@@ -362,7 +362,7 @@ export default function Experience() {
             {/* Inner Dashboard */}
             <div 
               data-lenis-prevent
-              className="p-6 md:p-8 flex-grow min-h-[460px] max-h-[560px] overflow-y-auto scrollbar-thin"
+              className="p-6 md:p-8 flex-grow min-h-[350px] md:min-h-[460px] md:max-h-[560px] md:overflow-y-auto overflow-y-visible max-h-none scrollbar-thin"
             >
               <AnimatePresence mode="wait">
                 {isBooting ? (
@@ -391,7 +391,7 @@ export default function Experience() {
                     {/* Header info */}
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-white/5 pb-4 gap-3">
                       <div>
-                        <h3 className="text-2xl font-bold font-display text-white">{activeMission.role}</h3>
+                        <h3 className="text-2xl font-bold font-display text-primary">{activeMission.role}</h3>
                         <span className="text-sm font-semibold text-accent-indigo mt-0.5 block">{activeMission.company}</span>
                       </div>
                       <div className="flex items-center space-x-2 text-secondary/50 font-mono text-xs shrink-0 self-start sm:self-auto bg-white/5 px-3 py-1 rounded-lg border border-white/5">
@@ -434,7 +434,7 @@ export default function Experience() {
                                   <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-accent-fuchsia animate-ping" />
                                 )}
                               </div>
-                              <span className="text-[11px] font-bold mt-2 font-display text-white/80">{node.name}</span>
+                              <span className="text-[11px] font-bold mt-2 font-display text-primary/80 dark:text-white/80">{node.name}</span>
                               <span className="text-[9px] font-mono text-secondary/40 mt-0.5">STEP 0{i + 1}</span>
                             </div>
                           );
@@ -452,7 +452,7 @@ export default function Experience() {
                           >
                             <FaCodeBranch className="text-accent-fuchsia shrink-0 mt-0.5" />
                             <div>
-                              <span className="text-white font-bold block mb-1">
+                              <span className="text-primary dark:text-white font-bold block mb-1">
                                 {activeMission.flow[selectedFlowIdx].name} Spec:
                               </span>
                               {activeMission.flow[selectedFlowIdx].desc}
@@ -477,7 +477,7 @@ export default function Experience() {
                             onClick={() => setActiveCategory(tab.key)}
                             className={`pb-2.5 px-2 text-xs font-mono uppercase tracking-wider border-b-2 transition-all shrink-0 ${
                               activeCategory === tab.key 
-                                ? 'border-accent-indigo text-white font-bold' 
+                                ? 'border-accent-indigo text-primary dark:text-white font-bold' 
                                 : 'border-transparent text-secondary/40 hover:text-secondary'
                             }`}
                           >
@@ -514,10 +514,10 @@ export default function Experience() {
             </div>
 
             {/* Footer stack bar */}
-            <div className="px-6 py-4 bg-[#050508] border-t border-white/5 flex flex-wrap gap-2 items-center select-none">
+            <div className="px-6 py-4 bg-primary/[0.03] dark:bg-[#050508] border-t border-primary/[0.06] dark:border-white/5 flex flex-wrap gap-2 items-center select-none">
               <span className="text-[9px] font-mono text-secondary/35 uppercase mr-2">Telemetry Environment:</span>
               {activeMission.tech.map((t) => (
-                <span key={t} className="text-[9px] font-mono text-white/50 bg-white/5 border border-white/5 px-2 py-0.5 rounded-full">
+                <span key={t} className="tag-pill text-[9px] font-mono px-2 py-0.5 rounded-full">
                   {t}
                 </span>
               ))}

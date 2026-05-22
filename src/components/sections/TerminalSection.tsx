@@ -101,7 +101,7 @@ Instagram: https://www.instagram.com/rjhariharan_`;
   };
 
   return (
-    <section id="terminal" className="py-24 relative overflow-hidden bg-black/30">
+    <section id="terminal" className="py-24 relative overflow-hidden section-alt-2">
       <div className="absolute top-1/2 left-0 w-96 h-96 bg-accent-blue/5 rounded-full blur-[140px] pointer-events-none -z-10" />
 
       <div className="container mx-auto px-6 md:px-12 relative z-10">

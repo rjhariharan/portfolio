@@ -18,25 +18,27 @@ import TerminalSection from './components/sections/TerminalSection';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  // Disable Lenis smooth scroll on mobile — native momentum scroll is far more performant
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
   return (
-    <ReactLenis root>
+    <ReactLenis root options={{ lerp: 0.1, duration: 1.2, smoothWheel: !isMobile, prevent: (node) => node.hasAttribute('data-lenis-prevent') }}>
       {/* Loading Screen Overlay */}
       <LoadingScreen onComplete={() => setIsLoading(false)} />
 
       {!isLoading && (
-        <div className="relative w-full min-h-screen bg-[#030303] text-primary overflow-hidden bg-grid-pattern">
+        <div className="relative w-full min-h-screen bg-background text-primary overflow-hidden bg-grid-pattern">
           {/* Global Follow Cursor */}
           <CustomCursor />
 
-          {/* Floating Neon Background Blobs */}
-          <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
+          {/* Floating Neon Background Blobs — hidden on mobile to prevent GPU-intensive blur repaints */}
+          <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none hidden md:block">
             {/* Blob 1: Blue */}
-            <div className="absolute top-1/4 -left-20 w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-accent-blue/10 blur-[100px] animate-blob" />
+            <div className="absolute top-1/4 -left-20 w-96 h-96 rounded-full bg-accent-blue/10 blur-[100px] animate-blob" />
             {/* Blob 2: Violet */}
-            <div className="absolute top-2/3 -right-20 w-80 h-80 sm:w-[450px] sm:h-[450px] rounded-full bg-accent-violet/10 blur-[130px] animate-blob [animation-delay:4s]" />
+            <div className="absolute top-2/3 -right-20 w-[450px] h-[450px] rounded-full bg-accent-violet/10 blur-[130px] animate-blob [animation-delay:4s]" />
             {/* Blob 3: Fuchsia */}
-            <div className="absolute top-1/2 left-1/3 w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-accent-fuchsia/5 blur-[90px] animate-blob [animation-delay:2s]" />
+            <div className="absolute top-1/2 left-1/3 w-80 h-80 rounded-full bg-accent-fuchsia/5 blur-[90px] animate-blob [animation-delay:2s]" />
           </div>
 
           {/* Floating Glassmorphic Nav Dock */}
@@ -51,9 +53,11 @@ function App() {
             <Certifications />
             <Experience />
             <TerminalSection />
-            <AskAI />
             <Contact />
           </main>
+
+          {/* Ask AI Support Drawer (moved outside main to ensure it overlays Navbar on mobile) */}
+          <AskAI />
 
           {/* Footer */}
           <Footer />

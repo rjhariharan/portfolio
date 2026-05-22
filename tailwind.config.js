@@ -4,13 +4,14 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        background: '#030303',
-        cardBg: '#09090b',
-        primary: '#ffffff',
-        secondary: '#a3a3a3',
+        background: 'var(--color-background)',
+        cardBg: 'var(--color-card-bg)',
+        primary: 'var(--color-primary)',
+        secondary: 'var(--color-secondary)',
         accent: {
           blue: '#3b82f6',
           indigo: '#6366f1',
