@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaGithub, FaExternalLinkAlt, FaChevronLeft, FaChevronRight, FaDatabase, FaServer, FaLock, FaNetworkWired, FaCode, FaLaptopCode, FaCheckCircle } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt, FaChevronLeft, FaChevronRight, FaDatabase, FaServer, FaLock, FaNetworkWired, FaCode, FaLaptopCode, FaCheckCircle, FaRobot } from 'react-icons/fa';
 
 interface Project {
   id: number;
@@ -349,6 +349,20 @@ export default function Projects() {
               </div>
 
               <div className="flex space-x-3 shrink-0">
+                <button
+                  onClick={() => {
+                    const event = new CustomEvent('ask-rj-ai', {
+                      detail: {
+                        prompt: `Tell me about ${activeProject.title}`
+                      }
+                    });
+                    window.dispatchEvent(event);
+                  }}
+                  className="flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-accent-indigo/10 hover:bg-accent-indigo/20 border border-accent-indigo/20 text-xs font-mono font-semibold text-accent-blue transition-all"
+                >
+                  <FaRobot size={12} className="text-accent-blue" />
+                  <span>Ask AI About This Project</span>
+                </button>
                 {activeProject.github && activeProject.github !== "" && (
                   <a 
                     href={activeProject.github} 

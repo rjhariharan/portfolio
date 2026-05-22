@@ -12,6 +12,7 @@ import Skills from './components/sections/Skills';
 import Projects from './components/sections/Projects';
 import Certifications from './components/sections/Certifications';
 import Experience from './components/sections/Experience';
+import AskAI from './components/sections/AskAI';
 import Contact from './components/sections/Contact';
 import TerminalSection from './components/sections/TerminalSection';
 
@@ -50,6 +51,7 @@ function App() {
             <Certifications />
             <Experience />
             <TerminalSection />
+            <AskAI />
             <Contact />
           </main>
 
