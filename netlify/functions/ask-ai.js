@@ -1,6 +1,6 @@
-const { GoogleGenerativeAI } = require("@google/generative-ai");
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-exports.handler = async function(event, context) {
+export async function handler(event, context) {
   // Only allow POST requests
   if (event.httpMethod !== "POST") {
     return {
@@ -51,7 +51,7 @@ R.J. Hariharan's Profile and Qualifications:
 - Highlight Projects:
   1. Vvendu Auction Platform: Enterprise automotive dynamic bidding portal.
      - Tech: React, TS, Spring Boot, MySQL, Tailwind CSS, GSAP.
-     - Highlights: Implemented secure 8-step Dealer & Lender registration flows, dynamic zone/region filters, resolved Lombok model serialization cyclic leaks.
+     - Highlights: Implemented secure 8-step Dealer & Lender registration flows, dynamic zone-region filters, resolved Lombok model serialization cyclic leaks.
   2. IoT Smart Lock System: Secure application-controlled lock automation.
      - Tech: C/C++ firmware, Firebase real-time db, Java Android, UART/SPI sensor relays.
      - Highlights: Detects hardware tamper events, latency < 150ms.
@@ -71,7 +71,6 @@ Rules for Responses:
     });
 
     // Format chat history for Gemini API
-    // Gemini chat API uses array of { role: "user"|"model", parts: [{ text: "..." }] }
     const formattedContents = [];
     if (Array.isArray(history)) {
       // Limit history length to last 10 messages to keep request lightweight
@@ -115,4 +114,4 @@ Rules for Responses:
       })
     };
   }
-};
+}
