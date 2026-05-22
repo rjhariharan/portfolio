@@ -107,7 +107,7 @@ export default function Hero() {
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-6">
               <a 
-                href="/rjhariharanresume.pdf" 
+                href={`${import.meta.env.BASE_URL}rjhariharanresume.pdf`} 
                 download="rjresume.pdf"
                 className="group relative px-8 py-3.5 bg-gradient-to-r from-accent-blue to-accent-indigo text-white font-bold rounded-full overflow-hidden w-full sm:w-auto text-center flex items-center justify-center space-x-2 shadow-lg shadow-accent-indigo/20 hover:shadow-accent-indigo/40 hover:scale-105 transition-all duration-300"
               >
@@ -156,7 +156,7 @@ export default function Hero() {
             <div className="relative w-56 h-56 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full p-[2px] bg-gradient-to-tr from-accent-blue/40 via-accent-indigo/20 to-accent-fuchsia/40 shadow-2xl">
               <div className="w-full h-full rounded-full bg-[#08080c] overflow-hidden flex items-center justify-center p-1.5">
                 <img 
-                  src="/portfoliologo.jpg" 
+                  src={`${import.meta.env.BASE_URL}portfoliologo.jpg`} 
                   alt="R.J. Hariharan Profile Logo" 
                   className="w-full h-full object-cover rounded-full hover:scale-110 transition-transform duration-700 select-none pointer-events-none"
                 />
