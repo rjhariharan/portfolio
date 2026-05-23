@@ -412,10 +412,10 @@ export default function Skills() {
           </div>
 
           {/* Right panel: HUD Ecosystem Inspector (Span 2) */}
-          <div className="lg:col-span-2 rounded-3xl bg-white/[0.02] border border-white/5 flex flex-col justify-between overflow-hidden">
+          <div className="lg:col-span-2 rounded-3xl bg-cardBg/40 dark:bg-white/[0.02] border border-primary/5 dark:border-white/5 flex flex-col justify-between overflow-hidden">
             
             {/* Header Inspector */}
-            <div className="p-6 border-b border-white/5 bg-[#050508] flex items-center justify-between select-none">
+            <div className="p-6 border-b border-primary/[0.06] dark:border-white/5 bg-primary/[0.03] dark:bg-[#050508] flex items-center justify-between select-none">
               <div className="flex items-center space-x-2">
                 <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                 <span className="text-[10px] font-mono uppercase tracking-widest text-secondary/40">Ecosystem Inspector</span>
@@ -434,7 +434,7 @@ export default function Skills() {
                   </span>
                 </div>
                 <div 
-                  className="w-14 h-14 rounded-2xl bg-white/[0.02] border border-white/10 flex items-center justify-center"
+                  className="w-14 h-14 rounded-2xl bg-primary/[0.03] dark:bg-white/[0.02] border border-primary/[0.08] dark:border-white/10 flex items-center justify-center"
                   style={{ boxShadow: `0 0 20px ${displayNode.glowColor}` }}
                 >
                   <displayNode.icon className={`text-2xl ${displayNode.color}`} />
@@ -442,7 +442,7 @@ export default function Skills() {
               </div>
 
               {/* Specs List */}
-              <div className="space-y-4 pt-4 border-t border-white/5">
+              <div className="space-y-4 pt-4 border-t border-primary/[0.06] dark:border-white/5">
                 <div>
                   <h4 className="text-[10px] uppercase font-mono tracking-wider text-secondary/40 mb-1">Exposure</h4>
                   <p className="text-sm font-semibold text-primary">{displayNode.experience}</p>
@@ -452,7 +452,7 @@ export default function Skills() {
                   <h4 className="text-[10px] uppercase font-mono tracking-wider text-secondary/40 mb-1.5">Active Deployments</h4>
                   <div className="flex flex-wrap gap-1.5">
                     {displayNode.projects.map((proj, i) => (
-                      <span key={i} className="text-[10px] font-mono text-secondary/80 bg-white/5 border border-white/5 px-2 py-0.5 rounded-md">
+                      <span key={i} className="tag-pill text-[10px] font-mono px-2 py-0.5 rounded-md">
                         {proj}
                       </span>
                     ))}

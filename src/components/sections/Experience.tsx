@@ -406,13 +406,13 @@ export default function Experience() {
                     </p>
 
                     {/* Interactive Architecture Map */}
-                    <div className="border border-white/5 bg-[#050508] rounded-2xl p-4">
+                    <div className="border border-primary/[0.06] dark:border-white/5 bg-primary/[0.03] dark:bg-[#050508] rounded-2xl p-4">
                       <span className="text-[10px] font-mono uppercase tracking-widest text-accent-indigo block mb-4">
                         Data Pipeline & Architecture Flow
                       </span>
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 relative">
                         {/* Connecting Line background decoration */}
-                        <div className="absolute top-[22px] left-[12%] right-[12%] h-[1px] bg-gradient-to-r from-accent-blue via-accent-indigo to-accent-fuchsia hidden md:block opacity-30" />
+                        <div className="absolute top-[22px] left-[12%] right-[12%] h-[1px] bg-gradient-to-r from-accent-blue via-accent-indigo to-accent-fuchsia hidden md:block opacity-35" />
 
                         {activeMission.flow.map((node, i) => {
                           const NodeIcon = node.icon;
@@ -425,8 +425,8 @@ export default function Experience() {
                             >
                               <div className={`w-11 h-11 rounded-xl flex items-center justify-center border relative z-10 transition-all duration-300 ${
                                 isSelected 
-                                  ? 'bg-[#0f0f18] border-accent-indigo text-accent-indigo shadow-[0_0_15px_rgba(99,102,241,0.3)] scale-110' 
-                                  : 'bg-[#08080c] border-white/5 text-secondary group-hover:border-white/20 group-hover:text-white'
+                                  ? 'bg-primary/5 dark:bg-[#0f0f18] border-accent-indigo text-accent-indigo shadow-[0_0_15px_rgba(99,102,241,0.25)] scale-110' 
+                                  : 'bg-primary/[0.03] dark:bg-[#08080c] border-primary/[0.06] dark:border-white/5 text-secondary group-hover:border-primary/15 dark:group-hover:border-white/20 group-hover:text-primary dark:group-hover:text-white'
                               }`}>
                                 <NodeIcon size={16} />
                                 {/* Pulsing particle link indicator */}
@@ -435,7 +435,7 @@ export default function Experience() {
                                 )}
                               </div>
                               <span className="text-[11px] font-bold mt-2 font-display text-primary/80 dark:text-white/80">{node.name}</span>
-                              <span className="text-[9px] font-mono text-secondary/40 mt-0.5">STEP 0{i + 1}</span>
+                              <span className="text-[9px] font-mono text-secondary/45 mt-0.5">STEP 0{i + 1}</span>
                             </div>
                           );
                         })}
@@ -448,7 +448,7 @@ export default function Experience() {
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: "auto" }}
                             exit={{ opacity: 0, height: 0 }}
-                            className="mt-4 p-3 bg-white/[0.02] border border-white/5 rounded-xl font-mono text-xs text-secondary/80 flex items-start space-x-3"
+                            className="mt-4 p-3 bg-primary/[0.02] dark:bg-white/[0.02] border border-primary/[0.06] dark:border-white/5 rounded-xl font-mono text-xs text-secondary/90 dark:text-white/85 flex items-start space-x-3"
                           >
                             <FaCodeBranch className="text-accent-fuchsia shrink-0 mt-0.5" />
                             <div>

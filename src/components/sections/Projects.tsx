@@ -182,21 +182,21 @@ export default function Projects() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-6xl mx-auto items-stretch">
           
           {/* Left: Active Console (Cols 9) */}
-          <div className="lg:col-span-9 order-2 lg:order-1 rounded-3xl bg-white/[0.02] border border-white/5 flex flex-col justify-between overflow-hidden glow-card">
+          <div className="lg:col-span-9 order-2 lg:order-1 rounded-3xl bg-cardBg/40 dark:bg-white/[0.02] border border-primary/5 dark:border-white/5 flex flex-col justify-between overflow-hidden glow-card">
             
             {/* View Mode Header toggler */}
-            <div className="px-6 py-4 bg-[#050508] border-b border-white/5 flex items-center justify-between flex-wrap gap-3">
+            <div className="px-6 py-4 bg-primary/[0.03] dark:bg-[#050508] border-b border-primary/[0.06] dark:border-white/5 flex items-center justify-between flex-wrap gap-3">
               <div className="flex items-center space-x-2 text-[10px] font-mono tracking-wider">
                 <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
                 <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
                 <span className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
                 <span className="text-secondary/40 ml-4">Terminal: {activeProject.title.replace(/\s+/g, '').toLowerCase()}.sh</span>
               </div>
-              <div className="flex space-x-2 bg-white/5 p-1 rounded-xl border border-white/5">
+              <div className="flex space-x-2 bg-primary/[0.04] dark:bg-white/5 p-1 rounded-xl border border-primary/[0.06] dark:border-white/5">
                 <button
                   onClick={() => setViewMode("ui")}
                   className={`px-3 py-1 text-[10px] font-mono rounded-lg transition-all ${
-                    viewMode === "ui" ? 'bg-accent-indigo text-white shadow-md' : 'text-secondary hover:text-white'
+                    viewMode === "ui" ? 'bg-accent-indigo text-white shadow-md' : 'text-secondary hover:text-primary dark:hover:text-white'
                   }`}
                 >
                   UI Mockup
@@ -204,7 +204,7 @@ export default function Projects() {
                 <button
                   onClick={() => setViewMode("architecture")}
                   className={`px-3 py-1 text-[10px] font-mono rounded-lg transition-all ${
-                    viewMode === "architecture" ? 'bg-accent-indigo text-white shadow-md' : 'text-secondary hover:text-white'
+                    viewMode === "architecture" ? 'bg-accent-indigo text-white shadow-md' : 'text-secondary hover:text-primary dark:hover:text-white'
                   }`}
                 >
                   Data Flow Arch
@@ -264,7 +264,7 @@ export default function Projects() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="rounded-2xl border border-white/10 bg-[#050508]/80 h-64 md:h-72 flex flex-col items-center justify-center p-6 relative overflow-hidden"
+                    className="rounded-2xl border border-primary/[0.06] dark:border-white/10 bg-primary/[0.03] dark:bg-[#050508]/80 h-64 md:h-72 flex flex-col items-center justify-center p-6 relative overflow-hidden"
                   >
                     {/* Animated laser grid backing */}
                     <div className="absolute inset-0 bg-grid-pattern opacity-10" />
@@ -278,7 +278,7 @@ export default function Projects() {
                         return (
                           <div key={node.id} className="flex flex-col md:flex-row items-center justify-center w-full md:w-auto">
                             <div className="flex flex-col items-center">
-                              <div className="w-12 h-12 rounded-xl bg-white/[0.02] border border-white/10 flex items-center justify-center relative shadow-[0_0_15px_rgba(255,255,255,0.02)]">
+                              <div className="w-12 h-12 rounded-xl bg-primary/[0.03] dark:bg-white/[0.02] border border-primary/[0.06] dark:border-white/10 flex items-center justify-center relative shadow-[0_0_15px_rgba(255,255,255,0.02)]">
                                 <NodeIcon className={`text-xl ${node.color}`} />
                                 {/* Pulsing ring indicator */}
                                 <span className="absolute inset-0 rounded-xl border border-accent-indigo/20 animate-ping opacity-25" />
@@ -307,9 +307,9 @@ export default function Projects() {
               </AnimatePresence>
 
               {/* Metrics Grid */}
-              <div className="grid grid-cols-3 gap-4 mt-6 border-y border-white/5 py-4">
+              <div className="grid grid-cols-3 gap-4 mt-6 border-y border-primary/[0.06] dark:border-white/5 py-4">
                 {activeProject.metrics.map((m, i) => (
-                  <div key={i} className="text-center font-mono border-r border-white/5 last:border-r-0">
+                  <div key={i} className="text-center font-mono border-r border-primary/[0.06] dark:border-white/5 last:border-r-0">
                     <span className="text-xs text-secondary/40 block uppercase tracking-wider mb-1">{m.label}</span>
                     <span className="text-sm font-bold text-primary block">{m.value}</span>
                   </div>
@@ -339,7 +339,7 @@ export default function Projects() {
             </div>
 
             {/* CTAs Footer bar */}
-            <div className="px-6 py-4 bg-[#050508] border-t border-white/5 flex items-center justify-between flex-wrap gap-4 select-none">
+            <div className="px-6 py-4 bg-primary/[0.03] dark:bg-[#050508] border-t border-primary/[0.06] dark:border-white/5 flex items-center justify-between flex-wrap gap-4 select-none">
               <div className="flex flex-wrap gap-1.5">
                 {activeProject.tech.map((t) => (
                   <span key={t} className="tag-pill text-[9px] font-mono px-2 py-0.5 rounded-full">

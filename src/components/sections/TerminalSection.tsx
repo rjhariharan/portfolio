@@ -138,7 +138,7 @@ Instagram: https://www.instagram.com/rjhariharan_`;
               <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
               <span className="w-3 h-3 rounded-full bg-green-500/80" />
             </div>
-            <div className="flex items-center space-x-1.5 text-secondary/40 font-mono text-[10px] sm:text-xs">
+            <div className="flex items-center space-x-1.5 text-slate-400 font-mono text-[10px] sm:text-xs">
               <FaTerminal />
               <span>rjhariharan@portfolio: ~</span>
             </div>
@@ -149,7 +149,7 @@ Instagram: https://www.instagram.com/rjhariharan_`;
           <div 
             ref={terminalContainerRef}
             data-lenis-prevent
-            className="p-6 font-mono text-xs sm:text-sm text-secondary/95 min-h-[300px] max-h-[400px] overflow-y-auto space-y-4 scrollbar-thin"
+            className="p-6 font-mono text-xs sm:text-sm text-slate-200 min-h-[300px] max-h-[400px] overflow-y-auto space-y-4 scrollbar-thin"
           >
             {history.map((item, idx) => (
               <div key={idx} className="space-y-1">
@@ -159,7 +159,7 @@ Instagram: https://www.instagram.com/rjhariharan_`;
                     <span>{item.command}</span>
                   </div>
                 )}
-                <pre className="text-secondary/70 whitespace-pre-wrap leading-relaxed">{item.output}</pre>
+                <pre className="text-slate-400 whitespace-pre-wrap leading-relaxed">{item.output}</pre>
               </div>
             ))}
             
