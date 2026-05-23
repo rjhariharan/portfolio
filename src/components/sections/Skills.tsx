@@ -482,7 +482,7 @@ export default function Skills() {
             </div>
 
             {/* Footer command prompt status */}
-            <div className="p-4 bg-[#050508] border-t border-white/5 flex items-center justify-between text-[10px] font-mono text-secondary/40 select-none">
+            <div className="p-4 bg-primary/[0.03] dark:bg-[#050508] border-t border-primary/[0.06] dark:border-white/5 flex items-center justify-between text-[10px] font-mono text-secondary/60 dark:text-secondary/40 select-none">
               <span>STATUS: SECURE_BIND</span>
               <span>SYS_INIT: OK</span>
             </div>
