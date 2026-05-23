@@ -181,11 +181,11 @@ export default function AskAI() {
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
               data-lenis-prevent
-              className="fixed top-0 right-0 h-screen w-full sm:w-[500px] z-[65] bg-cardBg/95 backdrop-blur-2xl border-l border-primary/10 shadow-[0_0_50px_rgba(0,0,0,0.15)] dark:shadow-[0_0_50px_rgba(0,0,0,0.5)] flex flex-col justify-between"
+              className="fixed top-0 right-0 h-screen w-full sm:w-[500px] z-[65] chat-drawer backdrop-blur-2xl shadow-[0_0_50px_rgba(0,0,0,0.15)] dark:shadow-[0_0_50px_rgba(0,0,0,0.5)] flex flex-col justify-between"
             >
               
               {/* Drawer HUD Header */}
-              <div className="px-6 py-5 border-b border-primary/10 bg-primary/[0.02] flex items-center justify-between">
+              <div className="px-6 py-5 border-b border-primary/10 bg-black/[0.015] dark:bg-white/[0.015] flex items-center justify-between">
                 <div>
                   <div className="flex items-center space-x-2 font-mono text-[10px] tracking-wider mb-0.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-accent-blue animate-ping" />
@@ -217,11 +217,11 @@ export default function AskAI() {
                           className={`max-w-[90%] rounded-2xl p-4 text-xs leading-relaxed font-mono ${
                             msg.sender === 'user' 
                               ? 'bg-accent-indigo/15 border border-accent-indigo/20 text-primary dark:text-white rounded-br-none shadow-[0_4px_12px_rgba(99,102,241,0.05)]' 
-                              : 'bg-primary/5 border border-primary/5 text-primary dark:text-secondary rounded-bl-none'
+                              : 'bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5 text-primary dark:text-secondary rounded-bl-none'
                           }`}
                         >
                           <pre className="whitespace-pre-wrap font-sans text-xs leading-relaxed select-text">{msg.text}</pre>
-                          <span className="text-[9px] text-secondary/30 block mt-2 text-right">{msg.timestamp}</span>
+                          <span className="text-[9px] text-secondary/45 dark:text-secondary/30 block mt-2 text-right">{msg.timestamp}</span>
                         </div>
                       </div>
                     ))}
@@ -229,7 +229,7 @@ export default function AskAI() {
                     {/* Streaming Typewriter Element */}
                     {isTyping && typingText && (
                       <div className="flex justify-start">
-                        <div className="max-w-[90%] rounded-2xl p-4 text-xs leading-relaxed font-mono bg-primary/5 border border-primary/5 text-primary dark:text-secondary rounded-bl-none">
+                        <div className="max-w-[90%] rounded-2xl p-4 text-xs leading-relaxed font-mono bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5 text-primary dark:text-secondary rounded-bl-none">
                           <pre className="whitespace-pre-wrap font-sans text-xs leading-relaxed typing-cursor select-text">{typingText}</pre>
                         </div>
                       </div>
@@ -238,7 +238,7 @@ export default function AskAI() {
                     {/* Initial Search Loading state */}
                     {isTyping && !typingText && (
                       <div className="flex justify-start">
-                        <div className="bg-primary/5 border border-primary/5 rounded-2xl p-4 flex items-center space-x-2 text-secondary/50 font-mono text-xs">
+                        <div className="bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5 rounded-2xl p-4 flex items-center space-x-2 text-secondary/60 dark:text-secondary/50 font-mono text-xs">
                           <FaSpinner className="animate-spin text-accent-indigo" />
                           <span>Accessing R.J. Knowledge Nodes...</span>
                         </div>
@@ -250,18 +250,18 @@ export default function AskAI() {
                 </div>
 
                 {/* Footer Input Area */}
-                <div className="p-6 border-t border-primary/10 bg-primary/[0.01]">
+                <div className="p-6 border-t border-primary/10 bg-black/[0.005] dark:bg-white/[0.005]">
                   
                   {/* Suggestion Chips */}
                   <div className="mb-4">
-                    <span className="text-[9px] font-mono uppercase tracking-widest text-secondary/50 block mb-2">Suggested Prompt Nodes</span>
+                    <span className="text-[9px] font-mono uppercase tracking-widest text-secondary/50 dark:text-secondary/40 block mb-2">Suggested Prompt Nodes</span>
                     <div className="flex flex-wrap gap-1.5 overflow-x-auto pb-1 max-h-[85px] scrollbar-thin">
                       {suggestions.map((s, idx) => (
                         <button
                           key={idx}
                           onClick={() => handleSearch(s.query)}
                           disabled={isTyping}
-                          className="text-[9px] font-mono text-secondary hover:text-primary bg-primary/5 hover:bg-accent-indigo/15 border border-primary/5 hover:border-accent-indigo/25 px-2.5 py-1 rounded-xl transition-all cursor-pointer whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1 shrink-0"
+                          className="text-[9px] font-mono text-secondary hover:text-primary dark:text-secondary/80 dark:hover:text-white bg-black/5 dark:bg-white/5 hover:bg-accent-indigo/15 border border-black/5 dark:border-white/5 hover:border-accent-indigo/25 px-2.5 py-1 rounded-xl transition-all cursor-pointer whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1 shrink-0"
                         >
                           <span>{s.label}</span>
                           <FaChevronRight size={6} className="text-secondary/40 shrink-0" />
@@ -276,9 +276,9 @@ export default function AskAI() {
                       e.preventDefault();
                       handleSearch(query);
                     }}
-                    className="flex items-center space-x-3 bg-primary/[0.02] dark:bg-black/20 border border-primary/10 rounded-2xl p-1.5 pl-4 hover:border-primary/20 transition-colors"
+                    className="flex items-center space-x-3 bg-black/[0.015] dark:bg-black/20 border border-primary/10 rounded-2xl p-1.5 pl-4 hover:border-primary/20 transition-colors"
                   >
-                    <FaTerminal className="text-secondary/40 shrink-0 text-xs" />
+                    <FaTerminal className="text-secondary/50 dark:text-secondary/40 shrink-0 text-xs" />
                     <input
                       type="text"
                       value={query}
