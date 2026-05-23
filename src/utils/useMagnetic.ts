@@ -5,6 +5,8 @@ export function useMagnetic<T extends HTMLElement>() {
   const ref = useRef<T>(null);
 
   useEffect(() => {
+    if (typeof window !== 'undefined' && window.innerWidth < 768) return;
+
     const el = ref.current;
     if (!el) return;
 

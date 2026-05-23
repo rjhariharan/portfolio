@@ -253,6 +253,29 @@ export default function Experience() {
   const [activeCategory, setActiveCategory] = useState<"features" | "contributions" | "apis" | "architecture">("features");
   const [selectedFlowIdx, setSelectedFlowIdx] = useState<number | null>(null);
 
+  const [isMobile, setIsMobile] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check, { passive: true });
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsVisible(entry.isIntersecting);
+    }, { threshold: 0.05 });
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+    return () => observer.disconnect();
+  }, []);
+
   const activeMission = missions[activeIdx];
 
   // Trigger boot sequence when selecting a tab
@@ -276,9 +299,9 @@ export default function Experience() {
   }, [activeIdx]);
 
   return (
-    <section id="experience" className="py-24 relative overflow-hidden section-alt-3">
+    <section ref={sectionRef} id="experience" className="py-24 relative overflow-hidden section-alt-3">
       {/* Background neon radial glow */}
-      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-80 h-80 rounded-full bg-accent-indigo/5 blur-[120px] pointer-events-none -z-10 animate-glow-pulse" />
+      <div className={`absolute top-1/2 left-1/4 -translate-y-1/2 w-80 h-80 rounded-full bg-accent-indigo/5 blur-[60px] pointer-events-none -z-10 ${isVisible && !isMobile ? 'animate-glow-pulse' : ''}`} />
 
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { FaReact, FaJava, FaGitAlt, FaMobileAlt, FaCode, FaServer, FaCogs, FaDatabase } from 'react-icons/fa';
 import { SiSpringboot, SiTypescript, SiJavascript, SiTailwindcss, SiNodedotjs, SiFirebase, SiMysql } from 'react-icons/si';
@@ -231,6 +231,29 @@ export default function Skills() {
   const [selectedNode, setSelectedNode] = useState<EcosystemNode>(skillsEcosystem[0]);
   const [hoveredNode, setHoveredNode] = useState<EcosystemNode | null>(null);
 
+  const [isMobile, setIsMobile] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check, { passive: true });
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsVisible(entry.isIntersecting);
+    }, { threshold: 0.05 });
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+    return () => observer.disconnect();
+  }, []);
+
   const displayNode = hoveredNode || selectedNode;
 
   // Connection line renderer
@@ -271,10 +294,10 @@ export default function Skills() {
   };
 
   return (
-    <section id="skills" className="py-24 relative overflow-hidden section-alt-3">
+    <section ref={sectionRef} id="skills" className="py-24 relative overflow-hidden section-alt-3">
       {/* Moving background spotlight gradients */}
-      <div className="absolute top-1/3 left-1/4 w-[400px] h-[400px] rounded-full bg-accent-blue/5 blur-[120px] pointer-events-none -z-10 animate-pulse" />
-      <div className="absolute bottom-10 right-1/3 w-[350px] h-[350px] rounded-full bg-accent-fuchsia/5 blur-[110px] pointer-events-none -z-10 animate-glow-pulse" />
+      <div className={`absolute top-1/3 left-1/4 w-[400px] h-[400px] rounded-full bg-accent-blue/5 blur-[60px] pointer-events-none -z-10 ${isVisible && !isMobile ? 'animate-pulse' : ''}`} />
+      <div className={`absolute bottom-10 right-1/3 w-[350px] h-[350px] rounded-full bg-accent-fuchsia/5 blur-[55px] pointer-events-none -z-10 ${isVisible && !isMobile ? 'animate-glow-pulse' : ''}`} />
 
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         
@@ -334,15 +357,15 @@ export default function Skills() {
             {/* Dashed Orbital Rings */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className="w-[18%] h-[18%] rounded-full border border-white/[0.02] absolute" />
-              <div className="w-[42%] h-[42%] rounded-full border border-dashed border-white/[0.02] absolute animate-spin [animation-duration:90s]" />
-              <div className="w-[70%] h-[70%] rounded-full border border-dashed border-white/[0.015] absolute animate-spin [animation-duration:150s]" />
+              <div className={`w-[42%] h-[42%] rounded-full border border-dashed border-white/[0.02] absolute ${isVisible && !isMobile ? 'animate-spin [animation-duration:90s]' : ''}`} />
+              <div className={`w-[70%] h-[70%] rounded-full border border-dashed border-white/[0.015] absolute ${isVisible && !isMobile ? 'animate-spin [animation-duration:150s]' : ''}`} />
               <div className="w-[95%] h-[95%] rounded-full border border-white/[0.01] absolute" />
             </div>
 
             {/* Central Core Signal */}
             <div className="absolute flex flex-col items-center justify-center pointer-events-none">
-              <div className="w-12 h-12 rounded-full bg-accent-blue/10 border border-accent-blue/30 flex items-center justify-center animate-pulse">
-                <FaCogs className="text-accent-blue animate-spin [animation-duration:8s]" size={16} />
+              <div className={`w-12 h-12 rounded-full bg-accent-blue/10 border border-accent-blue/30 flex items-center justify-center ${isVisible && !isMobile ? 'animate-pulse' : ''}`}>
+                <FaCogs className={`text-accent-blue ${isVisible && !isMobile ? 'animate-spin [animation-duration:8s]' : ''}`} size={16} />
               </div>
               <span className="text-[8px] font-mono text-secondary/30 mt-2 uppercase tracking-widest">Core Engine</span>
             </div>

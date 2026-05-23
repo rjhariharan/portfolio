@@ -12,6 +12,15 @@ interface Message {
 export default function AskAI() {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check, { passive: true });
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
   const [messages, setMessages] = useState<Message[]>([
     {
       sender: 'ai',
@@ -157,7 +166,7 @@ export default function AskAI() {
             Ask R.J. AI
           </span>
           {/* Pulsing ring indicator */}
-          <span className="absolute inset-0 rounded-full border border-accent-blue/30 animate-pulse animate-duration-3000" />
+          <span className={`absolute inset-0 rounded-full border border-accent-blue/30 ${!isMobile ? 'animate-pulse animate-duration-3000' : ''}`} />
         </button>
       </div>
 
@@ -181,14 +190,14 @@ export default function AskAI() {
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
               data-lenis-prevent
-              className="fixed top-0 right-0 h-screen w-full sm:w-[500px] z-[65] chat-drawer backdrop-blur-2xl shadow-[0_0_50px_rgba(0,0,0,0.15)] dark:shadow-[0_0_50px_rgba(0,0,0,0.5)] flex flex-col justify-between"
+              className="fixed top-0 right-0 h-screen w-full sm:w-[500px] z-[65] chat-drawer backdrop-blur-md shadow-[0_0_50px_rgba(0,0,0,0.15)] dark:shadow-[0_0_50px_rgba(0,0,0,0.5)] flex flex-col justify-between"
             >
               
               {/* Drawer HUD Header */}
               <div className="px-6 py-5 border-b border-primary/10 bg-black/[0.015] dark:bg-white/[0.015] flex items-center justify-between">
                 <div>
                   <div className="flex items-center space-x-2 font-mono text-[10px] tracking-wider mb-0.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent-blue animate-ping" />
+                    <span className={`w-1.5 h-1.5 rounded-full bg-accent-blue ${!isMobile ? 'animate-ping' : ''}`} />
                     <span className="text-primary font-bold uppercase">R.J. AI System Console</span>
                   </div>
                   <span className="text-[9px] font-mono text-secondary/50 block">LOCAL_KNOWLEDGE_ENGINE_ACTIVE</span>

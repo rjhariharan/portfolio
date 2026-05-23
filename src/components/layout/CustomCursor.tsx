@@ -6,10 +6,19 @@ export default function CustomCursor() {
   const cursorDotRef = useRef<HTMLDivElement>(null);
   const cursorTextRef = useRef<HTMLDivElement>(null);
   const [hoverText, setHoverText] = useState("");
+  const [isMobile, setIsMobile] = useState(true);
 
   useEffect(() => {
-    // Only enable on desktop
-    if (window.innerWidth < 768) return;
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) return;
 
     const onMouseMove = (e: MouseEvent) => {
       const { clientX, clientY } = e;
@@ -170,7 +179,9 @@ export default function CustomCursor() {
         el.removeEventListener('mouseleave', onMouseLeave);
       });
     };
-  }, []);
+  }, [isMobile]);
+
+  if (isMobile) return null;
 
   return (
     <>

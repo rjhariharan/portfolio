@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { ReactLenis } from 'lenis/react';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
@@ -10,11 +10,13 @@ import Hero from './components/sections/Hero';
 import About from './components/sections/About';
 import Skills from './components/sections/Skills';
 import Projects from './components/sections/Projects';
-import Certifications from './components/sections/Certifications';
-import Experience from './components/sections/Experience';
-import AskAI from './components/sections/AskAI';
 import Contact from './components/sections/Contact';
-import TerminalSection from './components/sections/TerminalSection';
+
+// Heavy sections lazy loaded to reduce initial bundle size
+const Certifications = lazy(() => import('./components/sections/Certifications'));
+const Experience = lazy(() => import('./components/sections/Experience'));
+const TerminalSection = lazy(() => import('./components/sections/TerminalSection'));
+const AskAI = lazy(() => import('./components/sections/AskAI'));
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -50,14 +52,26 @@ function App() {
             <About />
             <Skills />
             <Projects />
-            <Certifications />
-            <Experience />
-            <TerminalSection />
+            
+            <Suspense fallback={<div className="h-48 flex items-center justify-center font-mono text-xs text-secondary/30">Loading Credentials Node...</div>}>
+              <Certifications />
+            </Suspense>
+            
+            <Suspense fallback={<div className="h-48 flex items-center justify-center font-mono text-xs text-secondary/30">Retrieving Mission Logs...</div>}>
+              <Experience />
+            </Suspense>
+            
+            <Suspense fallback={<div className="h-48 flex items-center justify-center font-mono text-xs text-secondary/30">Spawning Shell Interface...</div>}>
+              <TerminalSection />
+            </Suspense>
+            
             <Contact />
           </main>
 
           {/* Ask AI Support Drawer (moved outside main to ensure it overlays Navbar on mobile) */}
-          <AskAI />
+          <Suspense fallback={null}>
+            <AskAI />
+          </Suspense>
 
           {/* Footer */}
           <Footer />

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt, FaChevronLeft, FaChevronRight, FaDatabase, FaServer, FaLock, FaNetworkWired, FaCode, FaLaptopCode, FaCheckCircle, FaRobot } from 'react-icons/fa';
 
@@ -65,7 +65,7 @@ const projects: Project[] = [
     github: "https://github.com/rjhariharan/portfolio",
     demo: "#",
     images: [
-      `${import.meta.env.BASE_URL}portfolio_hero.png`
+      `${import.meta.env.BASE_URL}portfolio_hero.webp`
     ],
     metrics: [
       { label: "Design Level", value: "Awwwards" },
@@ -145,6 +145,29 @@ export default function Projects() {
   const [viewMode, setViewMode] = useState<"ui" | "architecture">("ui");
   const [imageIndex, setImageIndex] = useState(0);
 
+  const [isMobile, setIsMobile] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check, { passive: true });
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsVisible(entry.isIntersecting);
+    }, { threshold: 0.05 });
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+    return () => observer.disconnect();
+  }, []);
+
   const activeProject = projects[activeProjectIdx];
 
   const handleNextImage = () => {
@@ -156,9 +179,9 @@ export default function Projects() {
   };
 
   return (
-    <section id="projects" className="py-24 relative overflow-hidden bg-primary/[0.02] dark:bg-black/10">
+    <section ref={sectionRef} id="projects" className="py-24 relative overflow-hidden bg-primary/[0.02] dark:bg-black/10">
       {/* Glow spot */}
-      <div className="absolute top-1/3 right-0 w-[500px] h-[500px] bg-accent-blue/5 blur-[130px] rounded-full pointer-events-none -z-10" />
+      <div className={`absolute top-1/3 right-0 w-[500px] h-[500px] bg-accent-blue/5 blur-[65px] rounded-full pointer-events-none -z-10`} />
 
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         
@@ -281,7 +304,7 @@ export default function Projects() {
                               <div className="w-12 h-12 rounded-xl bg-primary/[0.03] dark:bg-white/[0.02] border border-primary/[0.06] dark:border-white/10 flex items-center justify-center relative shadow-[0_0_15px_rgba(255,255,255,0.02)]">
                                 <NodeIcon className={`text-xl ${node.color}`} />
                                 {/* Pulsing ring indicator */}
-                                <span className="absolute inset-0 rounded-xl border border-accent-indigo/20 animate-ping opacity-25" />
+                                <span className={`absolute inset-0 rounded-xl border border-accent-indigo/20 opacity-25 ${isVisible && !isMobile ? 'animate-ping' : ''}`} />
                               </div>
                               <span className="text-[10px] font-mono mt-2 text-center text-primary/80 dark:text-white/80 whitespace-nowrap">{node.name}</span>
                             </div>
@@ -292,7 +315,7 @@ export default function Projects() {
                                 <div className="w-[1px] h-4 md:w-8 md:h-[1px] bg-gradient-to-r from-accent-indigo to-accent-fuchsia relative overflow-hidden">
                                   <motion.div 
                                     className="absolute inset-y-0 left-0 w-2 bg-white blur-[1px]"
-                                    animate={{ left: ["0%", "100%"] }}
+                                    animate={isVisible && !isMobile ? { left: ["0%", "100%"] } : undefined}
                                     transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
                                   />
                                 </div>

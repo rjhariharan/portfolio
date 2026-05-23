@@ -1,7 +1,7 @@
 import { Canvas } from '@react-three/fiber';
 import { Stars } from '@react-three/drei';
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { FaGithub, FaLinkedin, FaDownload, FaReact, FaJava, FaDatabase, FaMobileAlt } from 'react-icons/fa';
 
 export default function Hero() {
@@ -15,11 +15,26 @@ export default function Hero() {
 
   // Detect mobile for performance optimizations
   const [isMobile, setIsMobile] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
     check();
     window.addEventListener('resize', check, { passive: true });
     return () => window.removeEventListener('resize', check);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsVisible(entry.isIntersecting);
+    }, { threshold: 0.05 });
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+    return () => observer.disconnect();
   }, []);
 
   // Custom Typewriter logic
@@ -29,6 +44,7 @@ export default function Hero() {
   const [typingSpeed, setTypingSpeed] = useState(100);
 
   useEffect(() => {
+    if (!isVisible) return;
     const currentRole = roles[roleIndex];
     let timer: any;
 
@@ -59,7 +75,7 @@ export default function Hero() {
     }
 
     return () => clearTimeout(timer);
-  }, [roleText, isDeleting, roleIndex]);
+  }, [roleText, isDeleting, roleIndex, isVisible]);
 
   const floatBadges = [
     { icon: FaReact, color: "text-[#61dafb]", shadow: "shadow-[#61dafb]/20", position: "-top-2 -left-2", animation: "animate-float-slow" },
@@ -69,9 +85,9 @@ export default function Hero() {
   ];
 
   return (
-    <section id="home" className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-background">
-      {/* 3D Background — skip WebGL canvas entirely on mobile for performance */}
-      {!isMobile && (
+    <section ref={sectionRef} id="home" className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-background">
+      {/* 3D Background — skip WebGL canvas entirely on mobile or offscreen for performance */}
+      {isVisible && !isMobile && (
         <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
           <Canvas camera={{ position: [0, 0, 1] }}>
             <Stars radius={100} depth={50} count={4000} factor={6} saturation={0} fade speed={1.2} />
@@ -80,7 +96,7 @@ export default function Hero() {
       )}
 
       {/* Radiant glow background — static on mobile, animated on desktop */}
-      <div className={`absolute top-1/4 left-1/4 w-[50vw] h-[50vw] rounded-full bg-accent-indigo/5 blur-[120px] pointer-events-none -z-10 ${!isMobile ? 'animate-glow-pulse' : ''}`} />
+      <div className={`absolute top-1/4 left-1/4 w-[50vw] h-[50vw] rounded-full bg-accent-indigo/5 blur-[60px] pointer-events-none -z-10 ${!isMobile ? 'animate-glow-pulse' : ''}`} />
 
       <div className="container mx-auto px-6 md:px-12 z-10 flex flex-col-reverse lg:flex-row items-center justify-between mt-12 md:mt-20">
         
@@ -161,13 +177,13 @@ export default function Hero() {
             className="relative"
           >
             {/* Radiant glowing backdrop blobs */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-accent-blue to-accent-fuchsia rounded-full blur-[80px] opacity-25 animate-pulse"></div>
+            <div className="absolute inset-0 bg-gradient-to-tr from-accent-blue to-accent-fuchsia rounded-full blur-[40px] opacity-25 animate-pulse"></div>
             
             {/* Outer border circular frame with rotation glow */}
             <div className="relative w-56 h-56 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full p-[2px] bg-gradient-to-tr from-accent-blue/40 via-accent-indigo/20 to-accent-fuchsia/40 shadow-2xl">
               <div className="w-full h-full rounded-full bg-[#08080c] overflow-hidden flex items-center justify-center p-1.5">
                 <img 
-                  src={`${import.meta.env.BASE_URL}portfoliologo.jpg`} 
+                  src={`${import.meta.env.BASE_URL}portfoliologo.webp`} 
                   alt="R.J. Hariharan Profile Logo" 
                   className="w-full h-full object-cover rounded-full hover:scale-110 transition-transform duration-700 select-none pointer-events-none"
                 />
@@ -179,7 +195,7 @@ export default function Hero() {
                 return (
                   <div 
                     key={idx}
-                    className={`absolute ${badge.position} ${badge.animation} w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-primary/[0.03] dark:bg-white/5 border border-primary/[0.08] dark:border-white/10 backdrop-blur-xl flex items-center justify-center shadow-lg ${badge.shadow}`}
+                    className={`absolute ${badge.position} ${!isMobile ? badge.animation : ''} w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-primary/[0.03] dark:bg-white/5 border border-primary/[0.08] dark:border-white/10 backdrop-blur-xl flex items-center justify-center shadow-lg ${badge.shadow}`}
                   >
                     <BadgeIcon className={`${badge.color} text-lg sm:text-xl`} />
                   </div>

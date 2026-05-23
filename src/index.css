@@ -125,7 +125,7 @@ html.lenis, html.lenis body {
 
 /* UI Utilities */
 .glass-panel {
-  @apply bg-black/[0.01] border border-black/5 dark:bg-white/[0.02] dark:border-white/10 backdrop-blur-xl shadow-xl dark:shadow-2xl;
+  @apply bg-black/[0.01] border border-black/5 dark:bg-white/[0.02] dark:border-white/10 backdrop-blur-md shadow-xl dark:shadow-2xl;
 }
 
 .glass-card {
