@@ -103,7 +103,7 @@ export default function Navbar() {
             }}
             className="text-xl md:text-2xl font-bold font-display tracking-tight text-primary hover:opacity-95 transition-all flex items-center gap-2.5"
           >
-            <img src="/tablogo.png" alt="R.J. Logo" className="w-6 h-6 md:w-7 md:h-7 object-contain rounded-lg shadow-sm" />
+            <img src={`${import.meta.env.BASE_URL}tablogo.png`} alt="R.J. Logo" className="w-6 h-6 md:w-7 md:h-7 object-contain rounded-lg shadow-sm" />
             <div className="flex items-center gap-1">
               <span className="text-accent-blue font-extrabold">R.J.</span>
               <span className="text-secondary/80">Hariharan</span>

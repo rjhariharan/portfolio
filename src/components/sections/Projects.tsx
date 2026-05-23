@@ -65,7 +65,7 @@ const projects: Project[] = [
     github: "https://github.com/rjhariharan/portfolio",
     demo: "#",
     images: [
-      "/portfolio_hero.png"
+      `${import.meta.env.BASE_URL}portfolio_hero.png`
     ],
     metrics: [
       { label: "Design Level", value: "Awwwards" },
